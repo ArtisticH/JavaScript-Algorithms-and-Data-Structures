@@ -1,4 +1,4 @@
-## 1. Basic JavaScript
+# 1. Basic JavaScript
 
 - A string literal, or string, is a *series of zero or more characters* enclosed in single or double quotes.
 - If you do a mathematical operation on an `undefined` variable your result will be `NaN` which means "Not a Number".  
@@ -398,8 +398,92 @@ if (num > 15) {
 Order is important in if, else if statements.  
 The function is executed from top to bottom so you will want to be careful of what statement comes first.
 
+### Selecting from Many Options with Switch Statements
 
+If you need to match one value against many options, you can use a switch statement.  
+A `switch` statement compares the value to the `case` statements which define various possible values.  
+Any valid JavaScript statements can be executed inside a case block and will run from the first matched case value until a `break` is encountered.
+```
+switch (fruit) {
+  case "apple":
+    console.log("The fruit is an apple");
+    break;
+  case "orange":
+    console.log("The fruit is an orange");
+    break;
+}
+```
+case values are tested with strict equality (`===`).  
+The break tells JavaScript to stop executing statements. If the break is omitted, the next statement will be executed.  
+  
+In a switch statement you may not be able to specify all possible values as case statements.  
+Instead, you can add the `default` statement which will be executed if no matching case statements are found.  
+Think of it like the final else statement in an if/else chain.
+```
+switch (num) {
+  case value1:
+    statement1;
+    break;
+  case value2:
+    statement2;
+    break;
+...
+  default:
+    defaultStatement;
+    break;
+}
+```
 
+If the break statement is omitted from a switch statement's case, the following case statement(s) are executed until a break is encountered.  
+If you have multiple inputs with the same output, you can represent them in a switch statement like this:
+```
+let result = "";
+switch (val) {
+  case 1:
+  case 2:
+  case 3:
+    result = "1, 2, or 3";
+    break;
+  case 4:
+    result = "4 alone";
+}
+```
+  
+if you have many options to choose from, a switch statement can be easier to write than many chained if/else if statements.
+```
+if (val === 1) {
+  answer = "a";
+} else if (val === 2) {
+  answer = "b";
+} else {
+  answer = "c";
+}
 
-
+switch (val) {
+  case 1:
+    answer = "a";
+    break;
+  case 2:
+    answer = "b";
+    break;
+  default:
+    answer = "c";
+}
+```
+### Returning Boolean Values from Functions
+```
+function isEqual(a, b) {
+  if (a === b) {
+    return true;
+  } else {
+    return false;
+  }
+}
+```
+But there's a better way to do this. Since `===` returns `true` or `false`, we can return the result of the comparison:
+```
+function isEqual(a, b) {
+  return a === b;
+}
+```
 
