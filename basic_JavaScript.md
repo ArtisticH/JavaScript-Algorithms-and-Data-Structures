@@ -858,7 +858,11 @@ The value `[1, 2, 3, 4, 5]` will be displayed in the console.
 
 At first, this seems counterintuitive since the value of n decreases, but the values in the final array are increasing.  
 This happens because the push happens last, after the recursive call has returned.  
-At the point where `n` is pushed into the array, `countup(n - 1)` has already been evaluated and returned `[1, 2, ..., n - 1]`.
+At the point where `n` is pushed into the array, `countup(n - 1)` has already been evaluated and returned `[1, 2, ..., n - 1]`.  
+
+<img width="484" alt="스크린샷 2023-06-14 오후 4 20 45" src="https://github.com/ArtisticH/JavaScript-Algorithms-and-Data-Structures/assets/135418873/15116e1a-a4eb-488a-a31a-812bb480687a">. 
+
+<img width="484" alt="스크린샷 2023-06-14 오후 4 21 02" src="https://github.com/ArtisticH/JavaScript-Algorithms-and-Data-Structures/assets/135418873/a93c0261-a7e6-4c5b-8eda-3b113f4ac960">
 
 ```
 // Only change code below this line
@@ -875,5 +879,6 @@ function countdown(n) {
 console.log(countdown(5));
 ```
 ### Use Recursion to Create a Range of Numbers
+
 
   
