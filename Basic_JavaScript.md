@@ -793,8 +793,44 @@ Thus Math.random() can return a 0 but never return a 1.
 ```
 Math.floor(Math.random() * 20);
 ```
+This formula gives a random whole number in the range from `min` to `max`.
+```
+Math.floor(Math.random() * (max - min + 1)) + min
+```
 
+### Use the parseInt Function
+The `parseInt()` function parses a *string* and returns an *integer.*
+```
+const a = parseInt("007");
+```
+The above function converts the string 007 to the integer 7.  
+If the first character in the string can't be converted into a number, then it returns `NaN`.  
+  
+It takes a second argument for the radix, which specifies the base of the number in the string.  
+The radix can be an integer between 2 and 36.
+```
+const a = parseInt("11", 2);
+```
+*The radix variable says that 11 is in the binary system, or base 2.*. 
+This example converts the string 11 to an integer 3.(2^1 * 1 + 2^0 * 1 = 3)
 
+### Use the Conditional (Ternary) Operator
+The conditional operator, also called the ternary operator, can be used as a one line if-else expression.  
+  
+The syntax is `a ? b : c`, where `a` is the condition, `b` is the code to run when the condition returns `true`, and `c` is the code to run when the condition returns `false`.
+```
+function findGreater(a, b) {
+  return a > b ? "a is greater" : "b is greater or equal";
+}
+```
+You can also chain them together to check for multiple conditions.(들여쓰기 강추)
+```
+function findGreaterOrEqual(a, b) {
+  return (a === b) ? "a and b are equal" 
+    : (a > b) ? "a is greater" 
+    : "b is greater";
+}
+```
 
 
 
