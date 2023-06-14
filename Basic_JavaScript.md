@@ -487,3 +487,315 @@ function isEqual(a, b) {
 }
 ```
 
+### Object
+Objects are similar to arrays, except that instead of using indexes to access and modify their data, you access the data in objects through what are called `properties`.  
+Objects are useful for storing data in a structured way, and can represent real world objects.  
+  
+Properties are stored as strings. However, you can also use numbers as properties.  
+You can even omit the quotes for single-word string properties, as follows:
+```
+const anotherObject = {
+  make: "Ford",
+  5: "five",
+  "model": "focus"
+};
+```
+However, if your object has any non-string properties, JavaScript will automatically typecast them as strings.  
+  
+There are two ways to access the properties of an object: dot notation (.) and bracket notation ([]), similar to an array.  
+Dot notation is what you use when you know the name of the property you're trying to access ahead of time.(obj.legs처럼 quotes쓰지 않음!)
+   
+if the property of the object you are trying to access has a space in its name, you will need to use bracket notation.
+However, you can still use bracket notation on object properties without spaces.  
+Note that property names with spaces in them must be in quotes (single or double).  
+```
+const myObj = {
+  "Space Name": "Kirk",
+  "More Space": "Spock",
+  "NoSpace": "USS Enterprise"
+};
+
+myObj["Space Name"];
+myObj['More Space'];
+myObj["NoSpace"];
+```   
+  
+Another use of bracket notation on objects is to access a property which is stored as the value of a variable.  
+This can be very useful for iterating through an object's properties or when accessing a lookup table.  
+```
+const dogs = {
+  Fido: "Mutt",
+  Hunter: "Doberman",
+  Snoopie: "Beagle"
+};
+
+const myDog = "Hunter";
+const myBreed = dogs[myDog];
+console.log(myBreed);
+```
+Note that we do not use quotes around the variable name when using it to access the property because we are using the value of the variable, not the name.  
+  
+After you've created a JavaScript object, you can update its properties at any time just like you would update any other variable.  
+You can use either dot or bracket notation to update.  
+Also, You can add new properties to existing JavaScript objects the same way you would modify them.  
+    
+We can also delete properties from objects like this:  
+You may use either dot or bracket notation.
+```
+delete ourDog.bark;
+```
+   
+  
+Objects can be thought of as a key/value storage, like a dictionary.  
+If you have tabular data(표 형식의), you can use an object to lookup values rather than a switch statement or an if/else chain.  
+This is most useful when you know that your input data is limited to a certain range.
+```
+// Setup
+function phoneticLookup(val) {
+  let result = "";
+
+  // Only change code below this line
+  switch(val) {
+    case "alpha":
+      result = "Adams";
+      break;
+    case "bravo":
+      result = "Boston";
+      break;
+    case "charlie":
+      result = "Chicago";
+      break;
+    case "delta":
+      result = "Denver";
+      break;
+    case "echo":
+      result = "Easy";
+      break;
+    case "foxtrot":
+      result = "Frank";
+  }
+
+  // Only change code above this line
+  return result;
+}
+
+phoneticLookup("charlie");
+```
+```
+// Setup
+function phoneticLookup(val) {
+  let result = "";
+
+  // Only change code below this line
+  const lookup = {
+    "alpha": "Adams",
+    "bravo": "Boston",
+    "charlie": "Chicago",
+    "delta": "Denver",
+    "echo": "Easy",
+    "foxtrot": "Frank"
+  }
+
+  result = lookup[val];
+  // Only change code above this line
+  return result;
+}
+
+phoneticLookup("charlie");
+```
+To check if a property on a given object exists or not, you can use the `.hasOwnProperty()` method.  
+`someObject.hasOwnProperty(someProperty)` returns true or false depending on if the property is found on the object or not.
+```
+function checkForProperty(object, property) {
+  return object.hasOwnProperty(property);
+}
+```
+   
+Sometimes you may want to store data in a flexible Data Structure.  
+A JavaScript object is one way to handle flexible data.  
+They allow for arbitrary combinations of strings, numbers, booleans, arrays, functions, and objects.
+```
+const ourMusic = [
+  {
+    "artist": "Daft Punk",
+    "title": "Homework",
+    "release_year": 1997,
+    "formats": [ 
+      "CD", 
+      "Cassette", 
+      "LP"
+    ],
+    "gold": true
+  }
+];
+```
+Objects hold data in a property, which has a key-value format.  
+*In the example above,` "artist": "Daft Punk"` is a property that has a key of `artist` and a value of `Daft Punk`.*
+
+### Iterate with JavaScript Loops
+You can run the same code multiple times by using a loop.  
+  
+The first type of loop we will learn is called a while loop because it runs while a specified condition is true and stops once that condition is no longer true.
+```
+const ourArray = [];
+let i = 0;
+
+while (i < 5) {
+  ourArray.push(i);
+  i++;
+}
+```
+The most common type of JavaScript loop is called a `for` loop because it runs for a specific number of times.  
+For loops are declared with three optional expressions separated by semicolons:  
+`for (a; b; c)`, where `a` is the initialization statement, `b` is the condition statement, and `c` is the final expression.  
+  
+The initialization statement is executed one time only before the loop starts. It is typically used to define and setup your loop variable.  
+  
+The condition statement is evaluated at the beginning of every loop iteration and will continue as long as it evaluates to true. When the condition is false at the start of the iteration, the loop will stop executing. This means if the condition starts as false, your loop will never execute.  
+  
+The final expression is executed at the end of each loop iteration, prior to the next condition check and is usually used to increment or decrement your loop counter.  
+```
+const ourArray = [];
+
+for (let i = 0; i < 5; i++) {
+  ourArray.push(i);
+}
+```
+  
+For loops don't have to iterate one at a time. By changing our `final-expression`, we can count by even numbers.  
+```
+const ourArray = [];
+
+for (let i = 0; i < 10; i += 2) {
+  ourArray.push(i);
+}
+```
+A for loop can also count backwards, so long as we can define the right conditions.  
+```
+const ourArray = [];
+
+for (let i = 10; i > 0; i -= 2) {
+  ourArray.push(i);
+}
+```
+  
+### Iterate Through an Array with a For Loop
+```
+const arr = [10, 9, 8, 7, 6];
+
+for (let i = 0; i < arr.length; i++) {
+   console.log(arr[i]);
+}
+```
+If you have a multi-dimensional array, you can use the same logic as the prior waypoint to loop through both the array and any sub-arrays. Here is an example:
+```
+const arr = [
+  [1, 2], [3, 4], [5, 6]
+];
+
+for (let i = 0; i < arr.length; i++) {
+  for (let j = 0; j < arr[i].length; j++) {
+    console.log(arr[i][j]);
+  }
+}
+```
+### Iterate with JavaScript Do...While Loops
+It is called a do...while loop because it will first `do` one pass of the code inside the loop no matter what,  
+and then continue to run the loop `while` the specified condition evaluates to true.  
+```
+const ourArray = [];
+let i = 0;
+
+do {
+  ourArray.push(i);
+  i++;
+} while (i < 5);
+```
+what makes the `do...while` different from other loops is how it behaves when the condition fails on the first check.
+```
+const ourArray = []; 
+let i = 5;
+
+do {
+  ourArray.push(i);
+  i++;
+} while (i < 5);
+```
+In this case, we initialize the value of i to 5, just like we did with the while loop.  
+When we get to the next line, there is no condition to evaluate, so we go to the code inside the curly braces and execute it.  
+We will add a single element to the array and then increment i before we get to the condition check.  
+When we finally evaluate the condition i < 5 on the last line, we see that i is now 6, which fails the conditional check, so we exit the loop and are done.  
+At the end of the above example, the value of ourArray is [5]. Essentially, a do...while loop ensures that the code inside the loop will run at least once. 
+
+### Replace Loops using Recursion
+Recursion is the concept that a function can be expressed in terms of itself.  
+  
+multiply the first n elements of an array to create the product of those elements.  
+Using a for loop, you could do this:
+```
+function multiply(arr, n) {
+    let product = 1;
+    for (let i = 0; i < n; i++) {
+      product *= arr[i];
+    }
+  return product;
+}
+```
+***However, notice that `multiply(arr, n) == multiply(arr, n - 1) * arr[n - 1]`.***. 
+That means you can rewrite multiply in terms of itself and never need to use a loop.  
+```
+  function multiply(arr, n) {
+    if (n <= 0) {
+      return 1;
+    } else {
+      return multiply(arr, n - 1) * arr[n - 1];
+    }
+ }
+```
+```
+let arr = [2, 4, 5, 7, 8];
+multiply(arr, 3) === multiply(arr, 2) * arr[2]
+앞에서 3개 곱하기는 (앞에서 두개 * 세번째꺼 곱하기)와 같음
+(더하기의 경우 마찬가지로 앞에 3개 더하기는 (앞에서 두개 + 세번째거 더하기)와 같음)
+multiply(arr, 2) === multiply(arr, 1) * arr[1]
+multiply(arr, 1) === multiply(arr, 0) * arr[0]
+따라서
+multiply(arr, 3) === multiply(arr, 0) * arr[0] * arr[1] * arr[2]
+여기서 multiply(arr, 0)은 필요 없음, arr[0] * arr[1] * arr[2]이 원하는 결과. 
+그래서 base case, 
+if (n <= 0) {
+      return 1;
+}
+```
+```
+function sum(arr, n) {
+  // Only change code below this line
+  if ( n<= 0) {
+    return 0;
+  } else {
+    return sum(arr, n-1) + arr[n-1];
+  }
+  // Only change code above this line
+}
+```
+Recursive functions must have a base case when they return without calling the function again (in this example, when `n <= 0`), otherwise they can never finish executing.  
+
+### Generate Random Fractions with JavaScript
+JavaScript has a `Math.random()` function that generates a random decimal number between 0 (inclusive) and 1 (exclusive).  
+Thus Math.random() can return a 0 but never return a 1.
+
+### Generate Random Whole Numbers with JavaScript
+1. Use `Math.random()` to generate a random decimal number.
+2. Multiply that random decimal number by `20`.(아무숫자)
+3. Use `Math.floor()` to round this number down to its nearest whole number.(내려서 정수로 만듬)
+
+0부터 19까지의 정수가 랜덤으로
+```
+Math.floor(Math.random() * 20);
+```
+
+
+
+
+
+  
