@@ -603,8 +603,6 @@ makeServerRequest.then(result => {
 }).catch(error => {console.log(error)});
 ```
 
-```
-
 
 
 
