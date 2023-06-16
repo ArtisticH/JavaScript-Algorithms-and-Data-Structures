@@ -45,3 +45,43 @@ if (x = y) {
 }
 ```
 
+### Catch Missing Open and Closing Parenthesis After a Function Call
+```
+function myFunction() {
+  return "You rock!";
+}
+let varOne = myFunction;
+let varTwo = myFunction();
+```
+Here `varOne` is the function `myFunction`, and `varTwo` is the string `You rock!`.  
+  
+Also, Make sure to supply all required arguments, in the proper order to avoid these issues.
+  
+### Catch Off By One Errors When Using Indexing
+If you try to access an index equal to the length, the program may throw an "index out of range" reference error or print `undefined`.  
+```
+let alphabet = "abcdefghijklmnopqrstuvwxyz";
+let len = alphabet.length;
+for (let i = 0; i <= len; i++) {
+  console.log(alphabet[i]);
+}
+for (let j = 1; j < len; j++) {
+  console.log(alphabet[j]);
+}
+for (let k = 0; k < len; k++) {
+  console.log(alphabet[k]);
+}
+```
+The first example here loops one too many times, and the second loops one too few times (missing the first index, 0). The third example is correct.
+
+### Use Caution When Reinitializing Variables Inside a Loop
+Sometimes it's necessary to save information, increment counters, or re-set variables within a loop.  
+A potential issue is when variables either should be reinitialized, and aren't, or vice versa.  
+This is particularly dangerous if you accidentally reset the variable being used for the terminal condition, causing an infinite loop.
+
+### Prevent Infinite Loops with a Valid Terminal Condition
+Infinite loops are likely to freeze or crash the browser, and cause general program execution mayhem, which no one wants.  
+  
+One error is incrementing or decrementing a counter variable in the wrong direction from the terminal condition.  
+Another one is accidentally resetting a counter or index variable within the loop code, instead of incrementing or decrementing it.
+
