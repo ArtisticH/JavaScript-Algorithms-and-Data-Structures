@@ -306,6 +306,17 @@ You can also access capture groups in the replacement string with dollar signs (
 "Code Camp".replace(/(\w+)\s(\w+)/, '$2 $1'); // Camp Code
 ```
 ### Remove Whitespace from Start and End
+```
+let hello = "   Hello, World!  ";
+let wsRegex = /(\s+)(\w+,\s+\w+!)(\s+)/; // Change this line
+let result = hello.replace(wsRegex, '$2'); // Change this line
+```
+👇 답안 1
+```
+let hello = "   Hello, World!  ";
+let wsRegex = /^\s+|\s+$/g; // Change this line
+let result = hello.replace(wsRegex, ""); // Change this line
+```
 
 
 
