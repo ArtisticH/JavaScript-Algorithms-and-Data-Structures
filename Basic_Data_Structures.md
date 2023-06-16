@@ -173,4 +173,68 @@ In short, objects are key-value stores which provide a flexible, intuitive way t
 delete foods.apples;
 ```
 
+### Check if an Object has a Property
+One uses the `hasOwnProperty()` method and the other uses the `in` keyword. If we have an object users with a property of Alan, we could check for its presence in either of the following ways:
+```
+users.hasOwnProperty('Alan');
+'Alan' in users;
+```
+
+### Iterate Through the Keys of an Object with a for...in Statement
+Sometimes you need to iterate through all the *keys* within an object. You can use a for...in loop to do this. 
+```
+const refrigerator = {
+  'milk': 1,
+  'eggs': 12,
+};
+
+for (const food in refrigerator) {
+  console.log(food, refrigerator[food]);
+}
+```
+This code logs `milk 1` and `eggs 12`, with each key-value pair on its own line.  
+We defined the variable `food` in the loop head and this variable was set to each of the object's keys on each iteration, resulting in each food's name being printed to the console.
+
+NOTE: Objects do not maintain an ordering to stored keys like arrays do; thus a key's position on an object, or the relative order in which it appears, is irrelevant when referencing or accessing that key.
+
+```
+const users = {
+  Alan: {
+    online: false
+  },
+  Jeff: {
+    online: true
+  },
+  Sarah: {
+    online: false
+  }
+}
+
+function countOnline(allUsers) {
+  // Only change code below this line
+  let count = 0;
+  for(const user in allUsers) {
+    if(allUsers[user].online) { // [user]임에 주의
+      count++;
+    }
+  }
+  return count;
+  // Only change code above this line
+}
+
+console.log(countOnline(users));
+```
+
+### Generate an Array of All Object Keys with Object.keys()
+We can also generate an array which contains all the keys stored in an object with the `Object.keys()` method.  
+This method takes an object as the argument and returns an array of strings representing each property in the object.  
+Again, there will be no specific order to the entries in the array.
+
+### Modify an Array Stored in an Object
+Now you've seen all the basic operations for JavaScript objects. You can add, modify, and remove key-value pairs, check if keys exist, and iterate over all the keys in an object. As you continue learning JavaScript you will see even more versatile applications of objects.  
+  
+Additionally, the Data Structures lessons located in the Coding Interview Prep section of the curriculum also cover the ES6 Map and Set objects, both of which are similar to ordinary objects but provide some additional features. 
+
+
+
 
