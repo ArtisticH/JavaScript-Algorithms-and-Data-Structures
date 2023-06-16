@@ -223,4 +223,113 @@ function titleCase(str) {
     .replace(/(^|\s)\S/g, L => L.toUpperCase());
 }
 ```
+### Slice and Splice
+```
+function frankenSplice(arr1, arr2, n) {
+  let second = arr2.slice(0);
+  second.splice(n, 0, ...arr1);
+  return second;
+}
+// The second array should remain the same after the function runs.
+frankenSplice([1, 2, 3], [4, 5, 6], 1);
+frankenSplice([1, 2, 3], [4, 5], 1) ;
+frankenSplice([1, 2], ["a", "b"], 1);
+frankenSplice(["claw", "tentacle"], ["head", "shoulders", "knees", "toes"], 2);
+frankenSplice([1, 2, 3, 4], [], 0);
+```
+### Falsy Bouncer
+```
+function bouncer(arr) {
+  let newarr = arr.filter(item => !item !== true);
+  return newarr;
+}
 
+bouncer([7, "ate", "", false, 9]);
+bouncer(["a", "b", "c"]);
+bouncer([false, null, 0, NaN, undefined, ""]);
+```
+### Where do I Belong
+```
+function getIndexToIns(arr, num) {
+  arr.push(num);
+  arr.sort((a,b) => a-b);
+  console.log(arr.indexOf(num));
+  return arr.indexOf(num);
+}
+
+getIndexToIns([40, 60], 50);
+getIndexToIns([10, 20, 30, 40, 50], 35);
+getIndexToIns([10, 20, 30, 40, 50], 30);
+getIndexToIns([3, 10, 5], 3);
+getIndexToIns([5, 3, 20, 3], 5);
+```
+### Mutations
+```
+function mutation(arr) {
+  let first = arr[0].toLowerCase().split('').sort(); 
+  let second = arr[1].toLowerCase().split('').sort();
+  let count = 0;
+  for(let i = 0; i < second.length; i++) {
+    if(first.includes(second[i])) {
+      count++;
+    }
+  }
+  console.log(count === second.length);
+  return count === second.length;
+}
+
+mutation(["hello", "hey"]);
+mutation(["Mary", "Aarmy"]);
+mutation(["zyxwvutsrqponmlkjihgfedcba", "qrstu"]);
+mutation(["Alien", "line"]);
+```
+👇 답안 1
+```
+function mutation(arr) {
+  const test = arr[1].toLowerCase();
+  const target = arr[0].toLowerCase();
+  for (let i = 0; i < test.length; i++) {
+    if (target.indexOf(test[i]) < 0) return false;
+  }
+  return true;
+}
+```
+👇 답안 2
+```
+function mutation(arr) {
+  return arr[1]
+    .toLowerCase()
+    .split("")
+    .every(function(letter) {
+      return arr[0].toLowerCase().indexOf(letter) !== -1;
+    });
+}
+```
+
+### Chunky Monkey
+```
+function chunkArrayInGroups(arr, size) {
+  let newarr = [];
+  let length = Math.ceil(arr.length / size);
+  for(let i = 0; i < length; i++) {
+    let piece = arr.splice(0, size);
+    newarr.push(piece);
+  }
+  console.log(newarr);
+  return newarr;
+}
+
+chunkArrayInGroups(["a", "b", "c", "d"], 2);
+chunkArrayInGroups([0, 1, 2, 3, 4, 5, 6], 3)
+```
+👇 답안 1
+```
+function chunkArrayInGroups(arr, size) {
+  // Break it up.
+  const newArr = [];
+  for (let i = 0; i < arr.length; i += size) {
+    newArr.push(arr.slice(i, i + size));
+  }
+  return newArr;
+}
+```
