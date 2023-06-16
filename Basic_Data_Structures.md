@@ -167,4 +167,10 @@ function checkInventory(scannedItem) {
 console.log(checkInventory("apples"));
 ```
 ### Use the delete Keyword to Remove Object Properties
+In short, objects are key-value stores which provide a flexible, intuitive way to structure data, and, they provide very fast lookup time.  
+
+```
+delete foods.apples;
+```
+
 
