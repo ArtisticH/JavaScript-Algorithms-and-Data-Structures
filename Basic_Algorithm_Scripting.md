@@ -172,5 +172,35 @@ console.log(booWho(null)); // false
 
 ### Title Case a Sentence
 
+```
+function titleCase(str) {
+  let arr = str.split('');
+  let newStr = '';
+  for(let i = 0; i < arr.length; i++) {
+    if(i === 0 || arr[i-1] === ' ') {
+      newStr += arr[i].toUpperCase();
+    } else {
+      newStr += arr[i].toLowerCase();
+    }
+  }
+  console.log(newStr);
+  return newStr;
+}
 
+titleCase("I'm a little tea pot"); // I'm A Little Tea Pot
+titleCase("sHoRt AnD sToUt"); // Short And Stout
+titleCase("HERE IS MY HANDLE HERE IS MY SPOUT"); 
+// Here Is My Handle Here Is My Spout
+```
+👇 답안 1
+```
+function titleCase(str) {
+  const newTitle = str.split(" ");
+  const updatedTitle = [];
+  for (let st in newTitle) {
+    updatedTitle[st] = newTitle[st][0].toUpperCase() + newTitle[st].slice(1).toLowerCase();
+  }
+  return updatedTitle.join(" ");
+}
+```
 
