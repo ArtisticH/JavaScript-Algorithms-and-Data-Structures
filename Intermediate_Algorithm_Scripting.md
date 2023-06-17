@@ -147,4 +147,41 @@ Pig Latin is a way of altering English Words. The rules are as follows:
 - If a word begins with a vowel, just add `way` at the end.
 
 ```
+function translatePigLatin(str) {
+  if (/[aeiou]/.test(str[0])) {
+    return `${str}way`
+  } else {
+    let notVowel = str.match(/[^aeiou]+/)[0];
+    let arr = str.split('');
+    arr.splice(0, notVowel.length);
+    arr = arr.join('');
+    return `${arr}${notVowel}ay`
+  }
+}
+
+translatePigLatin("consonant");
+translatePigLatin("paragraphs");
+translatePigLatin("glove");
+translatePigLatin("rhythm");
+translatePigLatin("schwartz");
+translatePigLatin("algorithm");
+translatePigLatin("eight");
 ```
+👇답안 1
+```
+function translatePigLatin(str) {
+  let consonantRegex = /^[^aeiou]+/;
+  let myConsonants = str.match(consonantRegex);
+  return myConsonants !== null
+    ? str
+        .replace(consonantRegex, "")
+        .concat(myConsonants)
+        .concat("ay")
+    : str.concat("way");
+}
+
+translatePigLatin("consonant");
+```
+
+### Search and Replace
+
