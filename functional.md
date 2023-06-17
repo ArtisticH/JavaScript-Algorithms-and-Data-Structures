@@ -516,4 +516,114 @@ Compare `concat` to the `push` method. `push` adds items to the end of the same 
 `concat` offers a way to merge new items to the end of an array without any mutating side effects.  
 
 ### Use the reduce Method to Analyze Data
+`Array.prototype.reduce()`, or simply `reduce()`, is the most general of all array operations in JavaScript.  
+You can solve almost any array processing problem using the reduce method.
+
+The `reduce` method allows for more general forms of array processing, and it's possible to show that both `filter` and `map` can be derived as special applications of reduce.  
+The `reduce` method iterates over each item in an array and returns a single value (i.e. string, number, object, array).  
+This is achieved via a callback function that is called on each iteration.
+
+The callback function accepts four arguments.  
+The first argument is known as the accumulator, which gets assigned the return value of the callback function from the previous iteration,  
+the second is the current element being processed,  
+the third is the index of that element and the fourth is the array upon which reduce is called.
+
+In addition to the callback function, reduce has an additional parameter which takes an initial value for the accumulator.  
+If this second parameter is not used, then the first iteration is skipped and the second iteration gets passed the first element of the array as the accumulator.
+
+See below for an example using reduce on the users array to return the sum of all the users' ages. For simplicity, the example only uses the first and second arguments.
+```
+const users = [
+  { name: 'John', age: 34 },
+  { name: 'Amy', age: 20 },
+  { name: 'camperCat', age: 10 }
+];
+
+const sumOfAges = users.reduce((sum, user) => sum + user.age, 0);
+console.log(sumOfAges); // 64
+```
+
+In another example, see how an object can be returned containing the names of the users as properties with their ages as values.
+```
+const users = [
+  { name: 'John', age: 34 },
+  { name: 'Amy', age: 20 },
+  { name: 'camperCat', age: 10 }
+];
+
+const usersObj = users.reduce((obj, user) => {
+  obj[user.name] = user.age;
+  return obj;
+}, {});
+console.log(usersObj); // { John: 34, Amy: 20, camperCat: 10 }
+```
+```
+function getRating(watchList) {
+  // Only change code below this line
+  let averageRating = watchList.filter(item => item.Director === "Christopher Nolan").map(item => +item.imdbRating);
+  let length = averageRating.length;
+  averageRating = averageRating.reduce((acc,cur) => acc + cur, 0) / length;
+  // Only change code above this line
+  return averageRating;
+}
+
+console.log(getRating(watchList));
+```
+
+### Use Higher-Order Functions map, filter, or reduce to Solve a Complex Problem
+
+### Sort an Array Alphabetically using the sort Method
+The `sort` method sorts the elements of an array according to the callback function.
+```
+function ascendingOrder(arr) {
+  return arr.sort(function(a, b) {
+    return a - b;
+  });
+}
+
+ascendingOrder([1, 5, 2, 3, 4]); // [1, 2, 3, 4, 5]
+```
+```
+function reverseAlpha(arr) {
+  return arr.sort(function(a, b) {
+    return a === b ? 0 : a < b ? 1 : -1;
+  });
+}
+
+reverseAlpha(['l', 'h', 'z', 'b', 's']); // ['z', 's', 'l', 'h', 'b']
+```
+JavaScript's default sorting method is by string Unicode point value, which may return unexpected results.  
+Therefore, it is encouraged to provide a callback function to specify how to sort the array items.  
+When such a callback function, normally called `compareFunction`, is supplied, the array elements are sorted according to the *return value* of the compareFunction:  
+If `compareFunction(a,b)` returns a value less than 0 for two elements a and b, then *a will come before b*.  
+If `compareFunction(a,b)` returns a value greater than 0 for two elements a and b, then *b will come before a*.  
+If `compareFunction(a,b)` returns a value equal to 0 for two elements a and b, then a and b will remain unchanged.
+
+```
+function alphabeticalOrder(arr) {
+  // Only change code below this line
+  return arr.sort((a, b) => a === b ? 0 : a < b ? -1 : 1);
+  // Only change code above this line
+}
+console.log(alphabeticalOrder(["a", "d", "c", "a", "z", "g"])); // [ 'a', 'a', 'c', 'd', 'g', 'z' ]
+```
+
+### Return a Sorted Array Without Changing the Original Array
+A side effect of the `sort` method is that it changes the order of the elements in the original array.  
+In other words, it mutates the array in place. One way to avoid this is to first concatenate an empty array to the one being sorted (remember that `slice` and `concat` return a new array), then run the `sort` method.
+```
+const globalArray = [5, 6, 3, 2, 9];
+
+function nonMutatingSort(arr) {
+  // Only change code below this line
+  let newArr = [].concat(arr);
+  return newArr.sort((a,b) => a === b ? 0 : a < b ? -1 : 1);
+
+  // Only change code above this line
+}
+console.log(nonMutatingSort(globalArray)); // [ 2, 3, 5, 6, 9 ]
+console.log(globalArray); // [ 5, 6, 3, 2, 9 ]
+```
+
+### Split a String into an Array Using the split Method
 
