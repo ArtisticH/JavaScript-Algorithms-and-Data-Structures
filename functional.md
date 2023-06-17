@@ -626,4 +626,150 @@ console.log(globalArray); // [ 5, 6, 3, 2, 9 ]
 ```
 
 ### Split a String into an Array Using the split Method
+The `split` method splits a string into an array of strings. It takes an argument for the delimiter, which can be a character to use to break up the string or a regular expression. For example, if the delimiter is a space, you get an array of words, and if the delimiter is an empty string, you get an array of each character in the string.
 
+Here are two examples that split one string by spaces, then another by digits using a regular expression:
+```
+const str = "Hello World";
+const bySpace = str.split(" ");
+// ["Hello", "World"]
+
+const otherString = "How9are7you2today";
+const byDigits = otherString.split(/\d/);
+// ["How", "are", "you", "today"]
+```
+
+### Combine an Array into a String Using the join Method
+The `join` method is used to join the elements of an array together to create a string.  
+It takes an argument for the delimiter that is used to separate the array elements in the string.
+```
+const arr = ["Hello", "World"];
+const str = arr.join(" "); // Hello World
+```
+
+### Apply Functional Programming to Convert Strings to URL Slugs
+The last several challenges covered a number of useful array and string methods that follow functional programming principles.  
+We've also learned about `reduce`, which is a powerful method used to `reduce` problems to simpler forms.  
+From computing averages to sorting, any array operation can be achieved by applying it. Recall that `map` and `filter` are special cases of `reduce`.
+
+Let's combine what we've learned to solve a practical problem.
+
+Many content management sites (CMS) have the titles of a post added to part of the URL for simple bookmarking purposes.  
+For example, if you write a Medium post titled `Stop Using Reduce`, it's likely the URL would have some form of the title string in it (`.../stop-using-reduce`).  
+You may have already noticed this on the freeCodeCamp site.  
+
+***
+Fill in the `urlSlug` function so it converts a string `title` and returns the hyphenated version for the URL. You can use any of the methods covered in this section, and don't use `replace`. Here are the requirements:
+
+The input is a string with spaces and title-cased words
+
+The output is a string with the spaces between words replaced by a hyphen (`-`)
+
+The output should be all lower-cased letters
+
+The output should not have any spaces
+***
+```
+// Only change code below this line
+function urlSlug(title) {
+  let arr = title.split(/\s/).filter(item => item !== '').map(item => item.toLowerCase());
+  return arr.join('-');
+
+}
+// Only change code above this line
+urlSlug("A Mind Needs Books Like A Sword Needs A Whetstone");
+urlSlug("Winter Is Coming");
+urlSlug(" Winter Is  Coming")
+```
+👇 답안 1
+```
+// the global variable
+var globalTitle = "Winter Is Coming";
+
+// Add your code below this line
+function urlSlug(title) {
+  return title
+    .toLowerCase()
+    .trim()
+    .split(/\s+/)
+    .join("-");
+}
+// Add your code above this line
+
+var winterComing = urlSlug(globalTitle); // Should be "winter-is-coming"
+```
+
+### Use the every Method to Check that Every Element in an Array Meets a Criteria
+The `every` method works with arrays to check if every element passes a particular test. It returns a Boolean value - `true` if all values meet the criteria, `false` if not.
+
+For example, the following code would check if every element in the numbers array is less than 10:
+```
+const numbers = [1, 5, 8, 0, 10, 11];
+
+numbers.every(function(currentValue) {
+  return currentValue < 10; 
+}); // false
+```
+
+### Use the some Method to Check that Any Elements in an Array Meet a Criteria
+The `some` method works with arrays to check if any element passes a particular test.  
+It returns a Boolean value - `true` if any of the values meet the criteria, `false` if not.
+
+For example, the following code would check if any element in the numbers array is less than 10:
+```
+const numbers = [10, 50, 8, 220, 110, 11];
+
+numbers.some(function(currentValue) {
+  return currentValue < 10;
+}); // true
+```
+### Introduction to Currying and Partial Application
+The *arity* of a function is the number of arguments it requires.  
+*Currying* a function means to convert a function of N arity into N functions of arity 1.
+
+In other words, it restructures a function so it takes one argument, then returns another function that takes the next argument, and so on.  
+
+```
+function unCurried(x, y) {
+  return x + y;
+}
+
+function curried(x) {
+  return function(y) {
+    return x + y;
+  }
+}
+
+const curried = x => y => x + y
+
+curried(1)(2)
+```
+`curried(1)(2)` would return `3`.  
+
+This is useful in your program if you can't supply all the arguments to a function at one time.  
+You can save each function call into a variable, which will hold the returned function reference that takes the next argument when it's available.  
+Here's an example using the curried function in the example above:
+```
+const funcForY = curried(1);
+console.log(funcForY(2)); // 3
+```
+Similarly, *partial application* can be described as applying a few arguments to a function at a time and returning another function that is applied to more arguments.  
+Here's an example:
+```
+function impartial(x, y, z) {
+  return x + y + z;
+}
+
+const partialFn = impartial.bind(this, 1, 2);
+partialFn(10); // 13
+```
+부분 적용은 함수에 일부 인수를 적용하고, 더 많은 인수를 받는 다른 함수를 반환하는 것을 의미.
+
+주어진 예시에서 `impartial` 함수는 세 개의 인수 x, y, z를 받아서 그 합을 반환하는 함수이다.
+`partialFn`은 `impartial` 함수를 부분 적용하여 생성된 새로운 함수이다. 
+`bind()` 메서드는 impartial 함수에 this 값을 this로 설정하고, 첫 번째 인수를 1로, 두 번째 인수를 2로 고정한 새로운 함수를 반환한다.
+따라서 `impartial.bind(this, 1, 2)`는 새로운 함수를 반환하며, 이 함수는 아직 실행되지 않은 상태이다. 이 함수는 인수로 10을 받을 때 실행될 준비가 되어 있다.
+
+이후 `partialFn(10)`을 호출하면, `impartial` 함수에 적용되는 인수는 1, 2, 10이 된다. 1과 2는 이미 부분 적용된 상태이므로, partialFn에서는 마지막 인수로 받은 10을 z로 취급하여 계산을 수행한다. 따라서 결과는 1 + 2 + 10으로 계산된 13이 된다.
+
+부분 적용은 함수의 재사용성을 높이고, 코드를 간결하게 만들어주는 효과가 있다. 특정 상황에서 일부 인수를 미리 설정하고, 뒤이어 필요한 인수를 전달하여 함수를 호출할 수 있다. 이를 통해 코드의 유연성과 가독성을 개선할 수 있다.
