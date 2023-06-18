@@ -451,3 +451,81 @@ Find the smallest common multiple of the provided parameters that can be evenly 
 The range will be an array of two numbers that will not necessarily be in numerical order.
 
 For example, if given 1 and 3, find the smallest common multiple of both 1 and 3 that is also evenly divisible by all numbers between 1 and 3. The answer here would be 6.
+```
+function smallestCommons(arr) {
+  // 오름차순 정렬
+  let sorted = arr.sort((a,b) => a === b ? 0 : a < b ? -1 : 1);
+  // 배열 범위 만들기
+  let seq = [];
+  let multiple = 1;
+  for (let i = arr[0]; i <= arr[1]; i++) {
+    seq = seq.concat(i)
+    multiple *= i;
+  }
+  // 가장 큰 수의 배수들 중에서 나머지 배열로 하나씩 나눌 때 나머지가 모두 0인 수
+  for(let k = arr[1]; k <= multiple; k += arr[1]) {
+    let count = 0;
+    for(let d = 0; d < seq.length - 1; d++) {
+      if(k % seq[d] === 0) count++;
+      if(count === seq.length - 1) return k;
+    }
+  }
+}
+
+console.log(smallestCommons([1,5]));
+console.log(smallestCommons([2, 10]));
+console.log(smallestCommons([1, 13]));
+console.log(smallestCommons([23, 18]));
+```
+👇답안 1
+```
+function smallestCommons(arr) {
+  // Setup
+  const [min, max] = arr.sort((a, b) => a - b);
+  const numberDivisors = max - min + 1;
+  // Largest possible value for SCM
+  let upperBound = 1;
+  for (let i = min; i <= max; i++) {
+    upperBound *= i;
+  }
+  // Test all multiples of 'max'
+  for (let multiple = max; multiple <= upperBound; multiple += max) {
+    // Check if every value in range divides 'multiple'
+    let divisorCount = 0;
+    for (let i = min; i <= max; i++) {
+      // Count divisors
+      if (multiple % i === 0) {
+        divisorCount += 1;
+      }
+    }
+    if (divisorCount === numberDivisors) {
+      return multiple;
+    }
+  }
+}
+
+smallestCommons([1, 5]);
+```
+👇답안 2
+```
+function smallestCommons(arr) {
+  // Setup
+  const [min, max] = arr.sort((a, b) => a - b);
+  const range = Array(max - min + 1)
+    .fill(0)
+    .map((_, i) => i + min);
+  // Largest possible value for SCM
+  const upperBound = range.reduce((prod, curr) => prod * curr);
+  // Test all multiples of 'max'
+  for (let multiple = max; multiple <= upperBound; multiple += max) {
+    // Check if every value in range divides 'multiple'
+    const divisible = range.every((value) => multiple % value === 0);
+    if (divisible) {
+      return multiple;
+    }
+  }
+}
+
+smallestCommons([1, 5]);
+```
+
