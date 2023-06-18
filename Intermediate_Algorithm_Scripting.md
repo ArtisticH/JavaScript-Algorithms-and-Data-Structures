@@ -399,4 +399,55 @@ A prime number is a whole number greater than 1 with exactly two divisors: 1 and
 
 Rewrite `sumPrimes` so it returns the sum of all prime numbers that are less than or equal to num.
 ```
+function sumPrimes(num) {
+  // 소수 판별 함수(약수가 1과 자기자신뿐)
+  function isPrime(num) {
+    let arr = [];
+    for(let i = 1; i<= num; i++) {
+      arr.push(i);
+    }
+    arr = arr.filter(item => num % item === 0);
+    // 약수가 2개면 소수이고, 아니면 0 반환
+    return arr.length === 2 ? num : 0;
+  }
+  let sum = 0;
+  // 소수인 애들만 더해
+  for(let i = 2; i <= num; i++) {
+    sum += isPrime(i);
+  }
+  console.log(sum);
+  return sum;
+}
+
+sumPrimes(10);
+sumPrimes(5);
+sumPrimes(977);
 ```
+👇답안 1
+```
+function sumPrimes(num) {
+  // Helper function to check primality
+  function isPrime(num) {
+    const sqrt = Math.sqrt(num);
+    for (let i = 2; i <= sqrt; i++) {
+      if (num % i === 0)
+        return false;
+    }
+    return true;
+  }
+
+  // Check all numbers for primality
+  let sum = 0;
+  for (let i = 2; i <= num; i++) {
+    if (isPrime(i))
+      sum += i;
+  }
+  return sum;
+}
+```
+### Smallest Common Multiple
+Find the smallest common multiple of the provided parameters that can be evenly divided by both, as well as by all sequential numbers in the range between these parameters.
+
+The range will be an array of two numbers that will not necessarily be in numerical order.
+
+For example, if given 1 and 3, find the smallest common multiple of both 1 and 3 that is also evenly divisible by all numbers between 1 and 3. The answer here would be 6.
