@@ -588,6 +588,10 @@ function steamrollArray(arr) {
 // test here
 steamrollArray([1, [2], [3, [[4]]]]);
 ```
+<img width="691" alt="스크린샷 2023-06-19 오후 4 18 29" src="https://github.com/ArtisticH/JavaScript-Algorithms-and-Data-Structures/assets/135418873/c169c972-3dea-425d-8476-eecf866c071f">  
+<img width="691" alt="스크린샷 2023-06-19 오후 4 18 43" src="https://github.com/ArtisticH/JavaScript-Algorithms-and-Data-Structures/assets/135418873/56db0f1c-0a62-497e-860d-983b66bb601d">  
+<img width="691" alt="스크린샷 2023-06-19 오후 4 18 50" src="https://github.com/ArtisticH/JavaScript-Algorithms-and-Data-Structures/assets/135418873/871e25a1-ae88-4c4a-8416-22d597778cfb">
+
 👇답안 2
 ```
 function steamrollArray(arr) {
