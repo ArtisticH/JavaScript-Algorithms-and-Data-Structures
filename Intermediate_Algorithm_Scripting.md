@@ -566,7 +566,7 @@ dropElements([1, 2, 3, 4], function(n) {
 });
 ```
 ### Steamroller(답지봄)
-Flatten a nested array. You must account for varying levels of nesting.
+Flatten a nested array. You must account for varying levels of nesting.  
 👇답안 1
 ```
 function steamrollArray(arr) {
