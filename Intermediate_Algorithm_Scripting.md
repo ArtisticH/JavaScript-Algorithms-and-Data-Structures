@@ -568,3 +568,226 @@ dropElements([1, 2, 3, 4], function(n) {
 ### Steamroller
 Flatten a nested array. You must account for varying levels of nesting.
 
+### Binary Agents
+```
+function binaryAgent(str) {
+  let strs = str.split(' ');
+  let answer = strs.map(item => String.fromCharCode(parseInt(item, 2)));
+  console.log(answer.join(''));
+  return answer.join('');
+}
+
+binaryAgent("01000001 01110010 01100101 01101110 00100111 01110100 00100000 01100010 01101111 01101110 01100110 01101001 01110010 01100101 01110011 00100000 01100110 01110101 01101110 00100001 00111111"); // Aren't bonfires fun!?
+binaryAgent("01001001 00100000 01101100 01101111 01110110 01100101 00100000 01000110 01110010 01100101 01100101 01000011 01101111 01100100 01100101 01000011 01100001 01101101 01110000 00100001") // I love FreeCodeCamp!
+```
+`String.fromCharCode()` 메서드는 해당하는 10진수의 유니코드 문자를 반환한다. 
+
+### Everything Be True
+Check if the predicate (second argument) is truthy on all elements of a collection (first argument).
+In other words, you are given an array collection of objects. The predicate pre will be an object property and you need to return `true` if its value is `truthy`. Otherwise, return `false`.
+In JavaScript, `truthy` values are values that translate to `true` when evaluated in a Boolean context.
+```
+function truthCheck(collection, pre) {
+  return collection.every(item => item[pre]);
+}
+
+truthCheck([{name: "Quincy", role: "Founder", isBot: false}, {name: "Naomi", role: "", isBot: false}, {name: "Camperbot", role: "Bot", isBot: true}], "isBot"); // false
+truthCheck([{name: "Quincy", role: "Founder", isBot: false}, {name: "Naomi", role: "", isBot: false}, {name: "Camperbot", role: "Bot", isBot: true}], "name"); // true
+truthCheck([{name: "Quincy", role: "Founder", isBot: false}, {name: "Naomi", role: "", isBot: false}, {name: "Camperbot", role: "Bot", isBot: true}], "role"); // false
+truthCheck([{name: "Pikachu", number: 25, caught: 3}, {name: "Togepi", number: 175, caught: 1}], "number"); // true
+truthCheck([{name: "Pikachu", number: 25, caught: 3}, {name: "Togepi", number: 175, caught: 1}, {name: "MissingNo", number: NaN, caught: 0}], "caught"); // false
+truthCheck([{name: "Pikachu", number: 25, caught: 3}, {name: "Togepi", number: 175, caught: 1}, {name: "MissingNo", number: NaN, caught: 0}], "number"); // false
+truthCheck([{name: "Quincy", username: "QuincyLarson"}, {name: "Naomi", username: "nhcarrigan"}, {name: "Camperbot"}], "username"); // false
+truthCheck([{name: "freeCodeCamp", users: [{name: "Quincy"}, {name: "Naomi"}]}, {name: "Code Radio", users: [{name: "Camperbot"}]}, {name: "", users: []}], "users"); // true
+```
+
+### Arguments Optional
+Create a function that sums two arguments together. If only one argument is provided, then return a function that expects one argument and returns the sum.
+For example, `addTogether(2, 3)` should return `5`, and `addTogether(2)` should return a function.
+
+Calling this returned function with a single argument will then return the sum:
+```
+var sumTwoAnd = addTogether(2);
+```
+`sumTwoAnd(3)` returns `5`.
+If either argument isn't a valid number, return undefined.
+
+```
+function addTogether() {
+  if([...arguments].length === 2 && typeof [...arguments][0] === 'number' && typeof [...arguments][1] === 'number') {
+    return [...arguments][0] + [...arguments][1];
+  } else if ([...arguments].length === 1 && typeof [...arguments][0] === 'number') {
+    let x = [...arguments][0];
+    return function(y) {
+      if(typeof y === 'number') {
+        return x + y;
+      }
+    }
+  } else {
+    return undefined;
+  }
+}
+
+console.log(addTogether(2,3));
+console.log(addTogether(23, 30));
+console.log(addTogether("2", 3));
+console.log(addTogether(5, undefined));
+console.log(addTogether(5)(7));
+console.log(addTogether(2)([3]));
+console.log(addTogether(2, "3"));
+console.log(addTogether("https://www.youtube.com/watch?v=dQw4w9WgXcQ"));
+```
+👇답안 1
+```
+function addTogether() {
+  const [first, second] = arguments;
+
+  if (typeof (first) === "number") {
+    if (typeof (second) === "number") return first + second;
+    if (arguments.length === 1) return (second) => addTogether(first, second);
+  }
+}
+```
+### Make a Person
+Fill in the object constructor with the following methods below:
+```
+getFirstName()
+getLastName()
+getFullName()
+setFirstName(first)
+setLastName(last)
+setFullName(firstAndLast)
+```
+Run the tests to see the expected output for each method. The methods that take an argument must accept only one argument and it has to be a string. These methods must be the only available means of interacting with the object.
+
+
+```
+const Person = function(firstAndLast) {
+  let first = firstAndLast.split(' ')[0];
+  let last = firstAndLast.split(' ')[1];
+  this.getFullName = function() {
+    return `${first} ${last}`;
+  };
+  this.getFirstName = function() {
+    return first;
+  }
+  this.getLastName = function() {
+    return last;
+  }
+  this.setFirstName = function(arg1) {
+    first = arg1;
+  }
+  this.setLastName = function(arg2) {
+    last = arg2;
+  }
+  this.setFullName = function(arg3) {
+    first = arg3.split(' ')[0];
+    last = arg3.split(' ')[1];
+  }
+};
+
+const bob = new Person('Bob Ross');
+bob.getFullName();
+console.log(bob.getFirstName());
+console.log(bob.getLastName());
+console.log(bob.getFullName());
+bob.setFirstName("Haskell");
+console.log(bob.getFullName());
+bob.setLastName("Curry");
+console.log(bob.getFullName());
+bob.setFullName("Haskell Curry");
+console.log(bob.getFullName());
+console.log(bob.getFirstName());
+console.log(bob.getLastName());
+```
+👇답안 1
+```
+const Person = function(firstAndLast) {
+  let fullName = firstAndLast;
+
+  this.getFirstName = function() {
+    return fullName.split(" ")[0];
+  };
+
+  this.getLastName = function() {
+    return fullName.split(" ")[1];
+  };
+
+  this.getFullName = function() {
+    return fullName;
+  };
+
+  this.setFirstName = function(name) {
+    fullName = name + " " + fullName.split(" ")[1];
+  };
+
+  this.setLastName = function(name) {
+    fullName = fullName.split(" ")[0] + " " + name;
+  };
+
+  this.setFullName = function(name) {
+    fullName = name;
+  };
+};
+
+const bob = new Person("Bob Ross");
+console.log(bob.getFullName());
+```
+
+### Map the Debris
+According to Kepler's Third Law, the orbital period  T of two point masses orbiting each other in a circular or elliptic orbit is:  
+<img width="691" alt="스크린샷 2023-06-19 오전 11 30 17" src="https://github.com/ArtisticH/JavaScript-Algorithms-and-Data-Structures/assets/135418873/3dba5fb6-1b34-4464-bf80-b70c67740917">  
+Return a new array that transforms the elements' average altitude into their orbital periods (in seconds).  
+The array will contain objects in the format `{name: 'name', avgAlt: avgAlt}`.  
+The values should be rounded to the nearest whole number. The body being orbited is Earth.  
+The radius of the earth is 6367.4447 kilometers, and the GM value of earth is 398600.4418 km^3s^-2.
+```
+function orbitalPeriod(arr) {
+  const GM = 398600.4418;
+  const earthRadius = 6367.4447;
+  function calculation(item) {
+    const avgAlt = item.avgAlt;
+    const answer = Math.sqrt(Math.pow(avgAlt + earthRadius, 3) / GM) * 2 * 3.141592653;
+    item.avgAlt = Math.round(answer);
+    item.orbitalPeriod = item.avgAlt;
+    delete item.avgAlt;
+    return item;
+  }
+  return arr.map(item => calculation(item));
+}
+
+console.log(orbitalPeriod([{name : "sputnik", avgAlt : 35873.5553}])); // [ { name: 'sputnik', orbitalPeriod: 86400 } ]
+console.log(orbitalPeriod([{name: "iss", avgAlt: 413.6}, {name: "hubble", avgAlt: 556.7}, {name: "moon", avgAlt: 378632.553}]));
+// [ { name: 'iss', orbitalPeriod: 5557 },
+// { name: 'hubble', orbitalPeriod: 5734 },
+// { name: 'moon', orbitalPeriod: 2377399 } ]
+```
+👇답안 1
+```
+function orbitalPeriod(arr) {
+  const GM = 398600.4418;
+  const earthRadius = 6367.4447;
+  const a = 2 * Math.PI;
+  const newArr = [];
+
+  const getOrbPeriod = function(obj) {
+    const c = Math.pow(earthRadius + obj.avgAlt, 3);
+    const b = Math.sqrt(c / GM);
+    const orbPeriod = Math.round(a * b);
+    // create new object
+    return {name: obj.name, orbitalPeriod: orbPeriod};
+  };
+
+  for (let elem in arr) {
+    newArr.push(getOrbPeriod(arr[elem]));
+  }
+
+  return newArr;
+}
+
+// test here
+orbitalPeriod([{ name: "sputnik", avgAlt: 35873.5553 }]);
+```
+
+  
+
