@@ -258,7 +258,24 @@ function fearNotLetter(str) {
 
 // test here
 fearNotLetter("abce");
+// a는 97, b는 98, c는 99, e는 101
 ```
+`charCodeAt()` 메서드는 JavaScript 문자열에서 특정 인덱스의 문자에 대한 유니코드(Unicode) 값을 반환하는 메서드입니다.  
+이 메서드를 사용하면 문자열에서 특정 위치에 있는 문자의 유니코드 값을 알 수 있습니다.
+```
+const str = "Hello";
+console.log(str.charCodeAt(0)); // 72
+console.log(str.charCodeAt(1)); // 101
+console.log(str.charCodeAt(4)); // 111
+```
+`String.fromCharCode()` 함수는 주어진 유니코드 값들을 가진 문자열을 생성하는 JavaScript의 내장 함수입니다. 이 함수를 사용하여 유니코드 값을 문자열로 변환할 수 있습니다.
+```
+console.log(String.fromCharCode(65, 66, 67)); // "ABC"
+console.log(String.fromCharCode(97, 98, 99)); // "abc"
+console.log(String.fromCharCode(8364)); // "€"
+
+```
+
 
 ### Sorted Union
 Write a function that takes two or more arrays and returns a new array of unique values in the order of the original provided arrays.
