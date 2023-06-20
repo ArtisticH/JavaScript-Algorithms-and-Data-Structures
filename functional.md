@@ -4,7 +4,6 @@ In Functional Programming, code is organized into smaller, basic functions that 
 ### Learn About Functional Programming
 Functional programming is a style of programming where solutions are simple, isolated functions, without any side effects outside of the function scope: `INPUT -> PROCESS -> OUTPUT`.  
 - Isolated functions - there is no dependence on the state of the program, which includes global variables that are subject to change  
-- (전역 변수처럼 프로그램 상태에 의존하지 않음)
 - Pure functions - the same input always gives the same output
 - Functions with limited side effects - any changes, or mutations, to the state of the program outside the function are carefully controlled
 
