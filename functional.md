@@ -475,6 +475,32 @@ Array.prototype.myFilter = function(callback) {
 ["naomi", "quincy", "camperbot"].myFilter(element => element === "naomi"); // ["naomi"]
 [1, 1, 2, 5, 2].myFilter((element, index, array) => array.indexOf(element) === index); // [1, 2, 5]
 ```
+
+#### Array.prototype.forEach()
+```
+arr.forEach(callback(currentValue, index, array), thisArg);
+```
+- callback: 배열의 각 요소에 대해 호출되는 콜백 함수입니다. 다음 매개변수를 가집니다.
+- currentValue: 현재 처리 중인 요소의 값입니다.
+- index (선택적): 현재 처리 중인 요소의 인덱스입니다.
+- array (선택적): forEach()를 호출한 배열 자체입니다.
+- thisArg (선택적): 콜백 함수 내에서 this로 사용될 객체입니다.
+  `forEach()` 메서드는 주어진 배열의 각 요소에 대해 한 번씩 콜백 함수를 호출합니다. 순회 과정에서 콜백 함수에는 현재 요소의 값, 인덱스, 배열 자체 등의 정보가 전달됩니다. 이 메서드는 배열의 모든 요소를 차례대로 방문하며, 반복문을 통해 배열을 순회하는 것과 유사한 결과를 얻을 수 있습니다.
+```
+const numbers = [1, 2, 3, 4, 5];
+
+numbers.forEach(function(num, index) {
+  console.log(`Number at index ${index}: ${num}`);
+});
+
+// 출력:
+// Number at index 0: 1
+// Number at index 1: 2
+// Number at index 2: 3
+// Number at index 3: 4
+// Number at index 4: 5
+```
+
 ### Return Part of an Array Using the slice Method
 
 The `slice` method returns a copy of certain elements of an array.  
