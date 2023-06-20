@@ -502,6 +502,28 @@ numbers.forEach(function(num, index) {
 // Number at index 4: 5
 ```
 
+#### `map` and `filter` are special cases of `reduce`
+```
+const numbers = [1, 2, 3, 4, 5];
+
+// map()을 reduce()로 표현
+const squaredNumbers = numbers.reduce((acc, num) => {
+  acc.push(num * num);
+  return acc;
+}, []);
+console.log(squaredNumbers); // [1, 4, 9, 16, 25]
+
+// filter()를 reduce()로 표현
+const evenNumbers = numbers.reduce((acc, num) => {
+  if (num % 2 === 0) {
+    acc.push(num);
+  }
+  return acc;
+}, []);
+console.log(evenNumbers); // [2, 4]
+
+```
+
 ### Return Part of an Array Using the slice Method
 
 The `slice` method returns a copy of certain elements of an array.  
