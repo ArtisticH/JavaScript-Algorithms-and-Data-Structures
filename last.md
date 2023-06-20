@@ -96,4 +96,84 @@ telephoneCheck("27576227382");
 ```
 
 ### Cash Register
+```
+function checkCashRegister(price, cash, cid) {
+  const change = cash - price;
+  const all = cid.reduce((acc, cur) => {
+    cur = cur[1];
+    return acc + cur;
+  }, 0);
+  const arr = [
+    ['ONE HUNDRED', 100],
+    ['TWENTY', 20],
+    ['TEN', 10],
+    ['FIVE', 5],
+    ['ONE', 1],
+    ['QUARTER', 0.25],
+    ['DIME', 0.1],
+    ['NICKEL', 0.05],
+    ['PENNY', 0.01]
+  ];
+  // 잔돈보다 작은 단위의 잔고들의 총합
+  const amount = function (change) {
+    let unit;
+    let cidSlice;
+    let unitAmout;
+    for(let i = 0; i < arr.length; i++) {
+      if(arr[i][1] > change && change > arr[i+1][1]) {
+        unit = arr[i+1][0];
+      }
+    }
+    // cid에서 unit 이하의 잔고 총합
+    for(let i = 0; i < cid.length; i++) {
+      if(cid[i][0] === unit) {
+        cidSlice = cid.slice(0, cid.indexOf(cid[i])+1);
+      }
+    }
+    unitAmout = cidSlice.reduce((acc, cur) => {
+    cur = cur[1];
+    return acc + cur;
+  }, 0);
+    return unitAmout;
+  }
+
+  function open() {
+    let unit;
+    let cidSlice;
+    for(let i = 0; i < arr.length; i++) {
+      if(arr[i][1] > change && change > arr[i+1][1]) {
+        unit = arr[i+1][0];
+      }
+    }
+    for(let i = 0; i < cid.length; i++) {
+      if(cid[i][0] === unit) {
+        cidSlice = cid.slice(0, cid.indexOf(cid[i])+1).reverse();
+      }
+    }
+    console.log(cidSlice);
+    console.log();
+  }
+  open()
+
+  // 잔돈과 잔고가 같다면
+  if(change === all) {
+    console.log(1, {status: 'CLOSED', change: cid});
+    return {status: 'CLOSED', change: cid};
+  } else if (change > all || amount(change) < change) {
+    // 잔돈이 잔고보다 크거나, 잔고로 잔돈을 맞춰줄 수 없을 때
+    console.log(2, {status: 'INSUFFICIENT_FUNDS', change: []});
+    return {status: 'INSUFFICIENT_FUNDS', change: []};
+  } else {
+    return {status: 'OPEN', change: []};
+  }
+}
+
+checkCashRegister(19.5, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]); // OPEN
+checkCashRegister(3.26, 100, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]); // OPEN
+
+
+// checkCashRegister(19.5, 20, [["PENNY", 0.5], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]); // CLOSED
+// checkCashRegister(19.5, 20, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]); // INSUFFICIENT_FUNDS
+// checkCashRegister(19.5, 20, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 1], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]); // INSUFFICIENT_FUNDS
+```
 
