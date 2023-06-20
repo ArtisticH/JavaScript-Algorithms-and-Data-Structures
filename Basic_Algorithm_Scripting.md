@@ -215,6 +215,13 @@ function titleCase(str) {
 
 titleCase("I'm a little tea pot");
 ```
+`charAt()` 메서드는 문자열에서 특정 인덱스 위치에 있는 문자를 반환하는 JavaScript의 내장 메서드로,  이 메서드는 문자열에서 지정한 인덱스에 해당하는 문자를 추출한다. 
+```
+const str = "Hello, World!";
+console.log(str.charAt(0)); // 'H'
+console.log(str.charAt(7)); // 'W'
+console.log(str.charAt(12)); // '!'
+```
 👇 답안 3
 ```
 function titleCase(str) {
@@ -222,6 +229,17 @@ function titleCase(str) {
     .toLowerCase()
     .replace(/(^|\s)\S/g, L => L.toUpperCase());
 }
+```
+`replace()` 메서드의 두 번째 인수로 함수를 전달할 수 있다. 이 경우, 해당 문자열에서 찾은 각 일치 항목을 대체하는 데 사용되는 함수를 제공할 수 있다.
+이 함수는 일치 항목이 발견될 때마다 호출되며, 호출될 때는 일치 항목 전체, 그룹 일치 (group match) 등의 추가 정보를 매개변수로 받는다. 이 함수의 반환 값은 대체된 결과로 사용된다.
+```
+const str = "Hello, World!";
+const replaced = str.replace(/o/g, function(match) {
+  return match.toUpperCase();
+});
+
+console.log(replaced); // "HellO, WOrld!"
+
 ```
 ### Slice and Splice
 ```
