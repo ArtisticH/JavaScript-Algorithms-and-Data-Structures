@@ -26,6 +26,47 @@ palindrome("five|\_/|four");
 ```
 
 ### Roman Numeral Converter
+<img width="555" alt="스크린샷 2023-06-21 오후 3 24 33" src="https://github.com/ArtisticH/JavaScript-Algorithms-and-Data-Structures/assets/135418873/6839ac31-46b1-43c2-b66a-de9feb1d8000">
+
+```
+function convertToRoman(num) {
+  let number = num.toString().split('');
+  let length = number.length;
+  let underTen = ['', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'];
+  let tens = ['', 'X', 'XX', 'XXX', 'XL', 'L', 'LX', 'LXX', 'LXXX', 'XC'];
+  let hundreds = ['', 'C', 'CC', 'CCC', 'CD', 'D', 'DC', 'DCC', 'DCCC', 'CM'];
+  let thousands = ['', 'M', 'MM', 'MMM'];
+  if(length === 1) {
+    console.log(underTen[num]);
+    return underTen[num];
+  } else if(length === 2) {
+    for(let i = 0; i < length; i++) {
+      console.log(tens[number[0]]+underTen[number[1]]);
+      return tens[number[0]]+underTen[number[1]];
+    } 
+  } else if(length === 3) {
+    for(let i = 0; i < length; i++) {
+      console.log(hundreds[number[0]]+tens[number[1]]+underTen[number[2]]);
+      return hundreds[number[0]]+tens[number[1]]+underTen[number[2]];
+    } 
+  } else {
+    for(let i = 0; i < length; i++) {
+      console.log(thousands[number[0]]+hundreds[number[1]]+tens[number[2]]+underTen[number[3]]);
+      return thousands[number[0]]+hundreds[number[1]]+tens[number[2]]+underTen[number[3]];
+    } 
+  }
+  
+}
+convertToRoman(798);
+convertToRoman(9);
+convertToRoman(45);
+convertToRoman(97);
+convertToRoman(500);
+convertToRoman(1004);
+convertToRoman(1023);
+convertToRoman(3999);
+```
+
 
 ### Caesars Cipher
 One of the simplest and most widely known ciphers is a Caesar cipher, also known as a shift cipher.  
