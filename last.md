@@ -96,6 +96,10 @@ telephoneCheck("27576227382");
 ```
 
 ### Cash Register
+<img width="789" alt="스크린샷 2023-06-21 오후 2 18 50" src="https://github.com/ArtisticH/JavaScript-Algorithms-and-Data-Structures/assets/135418873/baffdb5e-5922-4e8e-90ae-0223bbce9309">  
+<img width="789" alt="스크린샷 2023-06-21 오후 2 18 59" src="https://github.com/ArtisticH/JavaScript-Algorithms-and-Data-Structures/assets/135418873/4d68ef24-6eaa-4a40-b3e2-4e3cfed16a37">
+
+
 ```
 function checkCashRegister(price, cash, cid) {
   const change = cash - price;
@@ -119,6 +123,7 @@ function checkCashRegister(price, cash, cid) {
     let unit;
     let cidSlice;
     let unitAmout;
+    let openArr= [];
     for(let i = 0; i < arr.length; i++) {
       if(arr[i][1] > change && change > arr[i+1][1]) {
         unit = arr[i+1][0];
@@ -137,43 +142,65 @@ function checkCashRegister(price, cash, cid) {
     return unitAmout;
   }
 
-  function open() {
+  function open(change) {
     let unit;
     let cidSlice;
+    let index;
+    let openArr = [];
+
     for(let i = 0; i < arr.length; i++) {
       if(arr[i][1] > change && change > arr[i+1][1]) {
         unit = arr[i+1][0];
       }
     }
+
     for(let i = 0; i < cid.length; i++) {
       if(cid[i][0] === unit) {
         cidSlice = cid.slice(0, cid.indexOf(cid[i])+1).reverse();
       }
     }
-    console.log(cidSlice);
-    console.log();
+
+    arr.forEach((e, i) => {
+      if (e[0] === unit) {
+        index = i;
+      }
+    })
+
+    let slicedArr = arr.slice(index);
+
+    for(let i = 0; i < cidSlice.length; i++) {
+      if(cidSlice[i][1] > change && change !== 0) {
+        let share = Math.floor(change / slicedArr[i][1]);
+        openArr.push([cidSlice[i][0], share*slicedArr[i][1]]);
+        change = change - share*slicedArr[i][1];
+        change = parseFloat(change.toFixed(2));
+        console.log('b', share*slicedArr[i][1], change)
+      } else if(cidSlice[i][1] < change && change !== 0){
+        openArr.push([cidSlice[i][0], cidSlice[i][1]]);
+        change = change - cidSlice[i][1];
+        change = parseFloat(change.toFixed(2));
+        console.log('a', change)
+      } 
+    }
+    return openArr.filter(item => item[1] !== 0);
   }
-  open()
 
   // 잔돈과 잔고가 같다면
   if(change === all) {
-    console.log(1, {status: 'CLOSED', change: cid});
     return {status: 'CLOSED', change: cid};
   } else if (change > all || amount(change) < change) {
     // 잔돈이 잔고보다 크거나, 잔고로 잔돈을 맞춰줄 수 없을 때
-    console.log(2, {status: 'INSUFFICIENT_FUNDS', change: []});
     return {status: 'INSUFFICIENT_FUNDS', change: []};
   } else {
-    return {status: 'OPEN', change: []};
+    let answer = open(change);
+    console.log({status: 'OPEN', change: answer})
+    return {status: 'OPEN', change: answer};
   }
 }
 
 checkCashRegister(19.5, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]); // OPEN
 checkCashRegister(3.26, 100, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]); // OPEN
-
-
-// checkCashRegister(19.5, 20, [["PENNY", 0.5], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]); // CLOSED
-// checkCashRegister(19.5, 20, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]); // INSUFFICIENT_FUNDS
-// checkCashRegister(19.5, 20, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 1], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]); // INSUFFICIENT_FUNDS
+checkCashRegister(19.5, 20, [["PENNY", 0.5], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]); // CLOSED
+checkCashRegister(19.5, 20, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]); // INSUFFICIENT_FUNDS
+checkCashRegister(19.5, 20, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 1], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]); // INSUFFICIENT_FUNDS
 ```
-
